@@ -1,7 +1,14 @@
-fn main() {
-    let v: Vec<i32> = Vec::new();
-    
-    loop {
-        
-    }
+mod tests;
+mod equation_builder;
+
+#[macro_use] extern crate rocket;
+
+#[get("/")]
+fn index() -> &'static str {
+    "Hello, world!"
+}
+
+#[launch]
+fn rocket() -> _ {
+    rocket::build().mount("/", routes![index])
 }
