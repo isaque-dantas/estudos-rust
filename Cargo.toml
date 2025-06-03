@@ -1,8 +1,12 @@
 [package]
-name = "untitled"
+name = "math_time_api"
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-rocket = "0.5.1"
 rand = "0.9.1"
+serde = "1.0.219"
+
+[dependencies.rocket]
+version = "0.5.0-rc.1"
+features = ["json"]

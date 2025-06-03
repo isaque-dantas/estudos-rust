@@ -1,16 +1,19 @@
 #[macro_use]
 extern crate rocket;
 
-pub mod equation_builder;
+use rocket::serde::json::Json;
 
-#[get("/")]
-fn index() -> &'static str {
-    "Hello, world!"
+pub mod equation_builder;
+pub mod equation_serializer;
+pub mod equation;
+
+#[get("/equation")]
+fn get_equation() -> Json<equation::EquationDTO> {
+    let equation = equation_builder::build_random();
+    Json(equation_serializer::serialize(&equation))
 }
 
 #[launch]
 fn rocket() -> _ {
-    equation_builder::build_random();
-
-    rocket::build().mount("/", routes![index])
+    rocket::build().mount("/api/v1/", routes![get_equation])
 }

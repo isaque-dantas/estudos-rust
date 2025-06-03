@@ -1,20 +1,20 @@
 use rand::Rng;
+use crate::equation::EquationMember;
+use crate::equation::EquationValue;
+use crate::equation::Equation;
 
-#[derive(Debug)]
-#[derive(PartialEq)]
-pub struct EquationValue {
-    coefficient: u8,
-    has_variable: bool,
+pub fn build_random() -> Equation {
+    let members = build_random_members();
+    let answer = get_answer(&members);
+    
+    Equation {id: 0, members, answer: answer}
 }
 
-#[derive(Debug)]
-#[derive(PartialEq)]
-pub enum EquationMember {
-    Value(EquationValue),
-    EqualitySign,
+pub fn get_answer(members: &Vec<EquationMember>) -> f64 {
+    10.0
 }
 
-pub fn build_random() -> Vec<EquationMember> {
+pub fn build_random_members() -> Vec<EquationMember> {
     let mut rng = rand::rng();
 
     let quantity = rng.random_range(2..=5);
@@ -22,7 +22,7 @@ pub fn build_random() -> Vec<EquationMember> {
     let has_variables = get_has_variables(quantity);
     let equality_sign_position = rng.random_range(1..quantity);
 
-    return build(
+    return build_members(
         quantity,
         coefficients,
         has_variables,
@@ -30,7 +30,7 @@ pub fn build_random() -> Vec<EquationMember> {
     );
 }
 
-pub fn build(
+pub fn build_members(
     quantity: u8,
     coefficients: Vec<u8>,
     has_variables: Vec<bool>,
@@ -84,7 +84,7 @@ mod tests {
 
     #[test]
     fn test_build() {
-        let equation = build(4, vec![1, 3, 2, 4], vec![true, false, true, false], 3);
+        let equation = build_members(4, vec![1, 3, 2, 4], vec![true, false, true, false], 3);
         let expected = vec![
             EquationMember::Value(EquationValue { coefficient: 1, has_variable: true }),
             EquationMember::Value(EquationValue { coefficient: 3, has_variable: false }),
@@ -95,4 +95,5 @@ mod tests {
         
         assert_eq!(equation, expected);
     }
+
 }

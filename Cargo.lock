@@ -550,6 +550,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "math_time_api"
+version = "0.1.0"
+dependencies = [
+ "rand 0.9.1",
+ "rocket",
+ "serde",
+]
+
+[[package]]
 name = "memchr"
 version = "2.7.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -921,6 +930,7 @@ dependencies = [
  "rocket_codegen",
  "rocket_http",
  "serde",
+ "serde_json",
  "state",
  "tempfile",
  "time",
@@ -1394,14 +1404,6 @@ name = "unicode-xid"
 version = "0.2.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ebc1c04c71510c7f702b52b7c350734c9ff1295c464a03335b00bb84fc54f853"
-
-[[package]]
-name = "untitled"
-version = "0.1.0"
-dependencies = [
- "rand 0.9.1",
- "rocket",
-]
 
 [[package]]
 name = "valuable"
