@@ -1,10 +1,11 @@
-use crate::equation::Equation;
+use crate::equation::RawEquation;
 use crate::equation::EquationDTO;
 use crate::equation::EquationMember;
+use crate::equation::EquationValue;
 
-pub fn serialize(equation: &Equation) -> EquationDTO {
+pub fn serialize(equation: &RawEquation) -> EquationDTO {
     EquationDTO {
-        id: equation.id,
+        id: equation.id as i32,
         content: serialize_members(&equation.members),
     }
 }
@@ -58,7 +59,7 @@ mod tests {
             }),
         ];
 
-        let equation = Equation {
+        let equation = RawEquation {
             id: 0,
             answer: 10.0,
             members: equation_members,

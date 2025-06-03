@@ -3,14 +3,21 @@ extern crate rocket;
 
 use rocket::serde::json::Json;
 
-pub mod equation_builder;
-pub mod equation_serializer;
 pub mod equation;
+pub mod models;
+pub mod schema;
 
 #[get("/equation")]
 fn get_equation() -> Json<equation::EquationDTO> {
-    let equation = equation_builder::build_random();
-    Json(equation_serializer::serialize(&equation))
+    let equation = equation::builder::build_random();
+    let serialized = equation::serializer::serialize(&equation);
+    
+    equation::repository::save(
+        serialized.content.as_str(),
+        equation.answer as f32
+    );
+    
+    Json(serialized)
 }
 
 #[launch]

@@ -1,13 +1,13 @@
 use rand::Rng;
 use crate::equation::EquationMember;
 use crate::equation::EquationValue;
-use crate::equation::Equation;
+use crate::equation::RawEquation;
 
-pub fn build_random() -> Equation {
+pub fn build_random() -> RawEquation {
     let members = build_random_members();
     let answer = get_answer(&members);
     
-    Equation {id: 0, members, answer: answer}
+    RawEquation {id: 0, members, answer: answer}
 }
 
 pub fn get_answer(members: &Vec<EquationMember>) -> f64 {
