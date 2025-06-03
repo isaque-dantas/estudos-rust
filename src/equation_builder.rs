@@ -1,59 +1,81 @@
-pub mod equation_builder {
-    use rand::Rng;
-    #[derive(Debug)]
-    pub struct EquationValue {
-        coefficient: u8,
-        has_variable: bool,
+use rand::Rng;
+
+#[derive(Debug)]
+#[derive(PartialEq)]
+pub struct EquationValue {
+    coefficient: u8,
+    has_variable: bool,
+}
+
+#[derive(Debug)]
+#[derive(PartialEq)]
+pub enum EquationMember {
+    Value(EquationValue),
+    EqualitySign,
+}
+
+pub fn build_random() -> Vec<EquationMember> {
+    let mut rng = rand::rng();
+
+    let quantity = rng.random_range(2..=5);
+    let coefficients = get_coefficients(quantity);
+    let has_variables = get_has_variables(quantity);
+    let equality_sign_position = rng.random_range(1..quantity);
+
+    return build(
+        quantity,
+        coefficients,
+        has_variables,
+        equality_sign_position as usize,
+    );
+}
+
+pub fn build(
+    quantity: u8,
+    coefficients: Vec<u8>,
+    has_variables: Vec<bool>,
+    equality_sign_position: usize,
+) -> Vec<EquationMember> {
+    let mut members: Vec<EquationMember> = Vec::new();
+
+    for i in 0..quantity {
+        let coefficient = coefficients[i as usize];
+        let has_variable = has_variables[i as usize];
+
+        members.push(EquationMember::Value(EquationValue {
+            coefficient,
+            has_variable,
+        }));
     }
-    
-    pub enum EquationMember {
-        Value(EquationValue),
-        EqualitySign
+
+    members.insert(
+        equality_sign_position as usize,
+        EquationMember::EqualitySign,
+    );
+
+    members
+}
+
+fn get_coefficients(quantity: u8) -> Vec<u8> {
+    let mut rng = rand::rng();
+    let mut coefficients: Vec<u8> = Vec::new();
+
+    for _ in 0..quantity {
+        coefficients.push(rng.random_range(1..=16));
     }
 
-    pub fn build() -> Vec<EquationMember> {
-        let mut rng = rand::rng();
-        let quantity = rng.random_range(2..=5);
+    coefficients
+}
 
-        let coefficients = get_coefficients(quantity);
-        let has_variables = get_has_variables(quantity);
-        
-        let mut members: Vec<EquationMember> = Vec::new();
-        
-        for i in 0..quantity {
-            let coefficient = coefficients[i as usize];
-            let has_variable = has_variables[i as usize];
-            members.push(
-                EquationMember::Value(
-                    EquationValue {coefficient, has_variable}
-                )
-            );
-        }
+fn get_has_variables(quantity: u8) -> Vec<bool> {
+    let mut rng = rand::rng();
+    let mut has_variables: Vec<bool> = Vec::new();
 
-        members
+    for _ in 0..quantity {
+        has_variables.push(rng.random_bool(0.25));
     }
 
-    fn get_coefficients(quantity: u8) -> Vec<u8> {
-        let mut rng = rand::rng();
-        let mut coefficients: Vec<u8> = Vec::new();
-
-        for _ in 0..quantity {
-            coefficients.push(rng.random_range(1..=16));
-        }
-
-        coefficients
-    }
-
-    fn get_has_variables(quantity: u8) -> Vec<bool> {
-        let mut rng = rand::rng();
-        let mut has_variables: Vec<bool> = Vec::new();
-
-        for _ in 0..quantity {
-            has_variables.push(rng.random_bool(0.25));
-        }
-
-        has_variables
-    }
+    has_variables
 }
 
 #[cfg(test)]
@@ -61,6 +83,16 @@ mod tests {
     use super::*;
 
     #[test]
-    fn foo() {
+    fn test_build() {
+        let equation = build(4, vec![1, 3, 2, 4], vec![true, false, true, false], 3);
+        let expected = vec![
+            EquationMember::Value(EquationValue { coefficient: 1, has_variable: true }),
+            EquationMember::Value(EquationValue { coefficient: 3, has_variable: false }),
+            EquationMember::Value(EquationValue { coefficient: 2, has_variable: true }),
+            EquationMember::EqualitySign,
+            EquationMember::Value(EquationValue { coefficient: 4, has_variable: false }),
+        ];
+        
+        assert_eq!(equation, expected);
     }
 }
