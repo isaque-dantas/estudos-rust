@@ -1,7 +1,7 @@
-mod tests;
 mod equation_builder;
 
-#[macro_use] extern crate rocket;
+#[macro_use]
+extern crate rocket;
 
 #[get("/")]
 fn index() -> &'static str {
