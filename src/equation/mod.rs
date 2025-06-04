@@ -17,7 +17,7 @@ pub enum EquationMember {
 pub struct RawEquation {
     pub id: usize,
     pub members: Vec<EquationMember>,
-    pub answer: f64,
+    pub answer: f32,
 }
 
 #[derive(serde::Serialize)]

@@ -14,10 +14,12 @@ pub fn save(content: &str, answer: f32) -> Option<Equation> {
 
     match diesel::insert_into(equations::table)
         .values(equation)
-        .returning((equations::id, equations::content, equations::answer))
-        .get_result::<(i64, &str, f64)>(connection)
+        .get_result::<Equation>(connection)
     {
         Ok(result) => Some(result),
-        Err(_) => None,
+        Err(err) => { 
+            dbg!(err);
+            None
+        },
     }
 }

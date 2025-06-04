@@ -3,7 +3,7 @@
 diesel::table! {
     equations (id) {
         id -> Integer,
-        content -> VarChar,
+        content -> Text,
         answer -> Float,
     }
 }
