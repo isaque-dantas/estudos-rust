@@ -1,7 +1,6 @@
 use crate::equation::RawEquation;
 use crate::equation::EquationDTO;
 use crate::equation::EquationMember;
-use crate::equation::EquationValue;
 
 pub fn serialize(equation: &RawEquation) -> EquationDTO {
     EquationDTO {
@@ -36,6 +35,7 @@ pub fn serialize_members(members: &Vec<EquationMember>) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::equation::EquationValue;
 
     #[test]
     fn test_serialize() {
