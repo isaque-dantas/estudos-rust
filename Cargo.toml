@@ -7,7 +7,7 @@ edition = "2024"
 rand = "0.9.1"
 serde = "1.0.219"
 diesel = { version = "2.2.0", features = ["sqlite", "returning_clauses_for_sqlite_3_35"] }
-libsqlite3-sys = { version = "0.34.0", features = ["bundled"] }
+libsqlite3-sys = { version = "0.32", features = ["bundled"] }
 dotenvy = "0.15"
 
 [dependencies.rocket]

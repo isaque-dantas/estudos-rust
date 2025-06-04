@@ -1,6 +1,6 @@
+use crate::equation::EquationDTO;
 use crate::schema::equations;
 use diesel::prelude::*;
-use crate::equation::EquationDTO;
 
 #[derive(Queryable)]
 #[diesel(table_name = equations)]
@@ -13,7 +13,14 @@ pub struct Equation {
 
 impl Equation {
     pub fn to_dto(self) -> EquationDTO {
-        EquationDTO {id: self.id, content: self.content}
+        EquationDTO {
+            id: self.id,
+            content: self.content,
+        }
+    }
+
+    pub fn is_answer_correct(&self, answer: f32) -> bool {
+        format!("{:.2}", self.answer) == format!("{:.2}", answer)
     }
 }
 

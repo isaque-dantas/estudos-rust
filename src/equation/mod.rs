@@ -1,6 +1,6 @@
 pub mod builder;
-pub mod serializer;
 pub mod repository;
+pub mod serializer;
 
 #[derive(Debug, PartialEq)]
 pub struct EquationValue {
@@ -24,4 +24,10 @@ pub struct RawEquation {
 pub struct EquationDTO {
     pub id: i32,
     pub content: String,
+}
+
+#[derive(serde::Deserialize)]
+#[serde(crate = "rocket::serde")]
+pub struct EquationAnswer {
+    pub answer: f32,
 }

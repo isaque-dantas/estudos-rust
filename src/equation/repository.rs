@@ -23,3 +23,12 @@ pub fn save(content: &str, answer: f32) -> Option<Equation> {
         },
     }
 }
+
+pub fn get(equation_id: i32) -> QueryResult<Equation> {
+    use crate::schema::equations::dsl::*;
+    let connection = &mut establish_connection();
+    
+    equations
+        .filter(id.eq(equation_id))
+        .first::<Equation>(connection)
+}
