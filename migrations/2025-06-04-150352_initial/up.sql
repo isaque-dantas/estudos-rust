@@ -1,6 +1,6 @@
 CREATE TABLE equations
 (
-    id      INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    id      SERIAL PRIMARY KEY,
     content VARCHAR(16) NOT NULL,
     answer  REAL        NOT NULL
 );

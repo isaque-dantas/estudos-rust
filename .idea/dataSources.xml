@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:sqlite:C:\Users\LOGAP\RustroverProjects\estudos-rust\database.db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="test@localhost" uuid="a8e772fa-0442-4767-9551-2a0b9c5067f6">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/test</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

@@ -2,8 +2,9 @@
 
 diesel::table! {
     equations (id) {
-        id -> Integer,
-        content -> Text,
-        answer -> Float,
+        id -> Int4,
+        #[max_length = 16]
+        content -> Varchar,
+        answer -> Float4,
     }
 }

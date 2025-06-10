@@ -4,7 +4,7 @@ use diesel::prelude::*;
 
 #[derive(Queryable)]
 #[diesel(table_name = equations)]
-#[diesel(check_for_backend(diesel::sqlite::Sqlite))]
+#[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct Equation {
     pub id: i32,
     pub content: String,
@@ -39,7 +39,7 @@ mod tests {
 
 #[derive(Selectable, Insertable)]
 #[diesel(table_name = equations)]
-#[diesel(check_for_backend(diesel::sqlite::Sqlite))]
+#[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct EquationForm {
     pub content: String,
     pub answer: f32,
